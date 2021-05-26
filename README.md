@@ -6,10 +6,8 @@ Changes made to BU version:
 - Selected 50 JSON task files most suitable for behavioral testing
 - Eliminated floodfill and pixel select options
 - Added action tracking
-
-To-Do:
-- Change task selection from random to ordered
-- Add trial count - auto-load next task after success or 3 failed trials
+- Changed task selection from random to ordered
+- Added try count - auto-load next task after success or 3 failed tries
 
 -- Original README.md from Francois Chollet --
 
