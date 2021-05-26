@@ -15,6 +15,18 @@ var MAX_CELL_SIZE = 100;
 // PDDL
 var ACTION_COUNT = 0;
 var PDDL = [];
+var task_num = 0;
+var task_length = 50
+var success = 0; //this var defines a success or failure trial
+var error_counter = 0;
+
+function nextTask(){
+	task_num = task_num + 1;
+	console.log("next button click");
+	presentTask();
+	   if task_num == task_length
+			alert("This is the end of the study. Thank you for participating. Goodbye!")
+}
 
 function resetTask() {
     CURRENT_INPUT_GRID = new Grid(3, 3);
@@ -59,6 +71,7 @@ function setUpEditionGridListeners(jqGrid) {
 
             if (typeof symbol !== 'undefined')
                 PDDL.push("FILL " + cell.attr("x") + " " + cell.attr("y") + " " + symbol)
+                console.log("user click Fill and at o\pos x and y = ..")
         }
         else if (mode == 'edit') {
             // Else: fill just this cell.
@@ -126,7 +139,7 @@ function fillPairPreview(pairId, inputGrid, outputGrid) {
     fitCellsToContainer(jqOutputGrid, outputGrid.height, outputGrid.width, 200, 200);
 }
 
-function loadJSONTask(train) {
+function loadJSONTask(train, test) {
     resetTask();
     $('#modal_bg').hide();
     $('#error_display').hide();
@@ -140,13 +153,16 @@ function loadJSONTask(train) {
         output_grid = convertSerializedGridToGridObject(values)
         fillPairPreview(i, input_grid, output_grid);
     }
+    for (var i=0; i < test.length; i++) {
+        pair = test[i];
+        TEST_PAIRS.push(pair);
+	}
     values = TEST_PAIRS[0]['input'];
     CURRENT_INPUT_GRID = convertSerializedGridToGridObject(values)
     fillTestInput(CURRENT_INPUT_GRID);
     CURRENT_TEST_PAIR_INDEX = 0;
     $('#current_test_input_id_display').html('1');
     $('#total_test_input_count_display').html(test.length);
-
     initPDDL();
 }
 
@@ -164,30 +180,31 @@ function loadTaskFromFile(e) {
         try {
             contents = JSON.parse(contents);
             train = contents['train'];
+            test = contents['test'];
         } catch (e) {
             errorMsg('Bad file format');
             return;
         }
-        loadJSONTask(train);
+        loadJSONTask(train, test);
     };
     reader.readAsText(file);
 }
 
-//figure out how to present tasks in order
-function randomTask() {
+function presentTask() {
     var subset = "training";
-//need to change source to my github...
-    $.getJSON("https://api.github.com/repos/ahn-cj/ARC-behavioral/demo-tasks" + subset, function(tasks) {
-      var task = tasks[Math.floor(Math.random() * tasks.length)];
+    $.getJSON("https://api.github.com/repos/ahn-cj/ARC-behavioral/contents/data/" + subset, function(tasks) {
+      var task = tasks[task_num];
+	       console.log(Math.floor(Math.random() * task_length))
       TASK_ID = task['name'];
       $.getJSON(task["download_url"], function(json) {
           try {
               train = json['train'];
+				test = json['test'];
           } catch (e) {
               errorMsg('Bad file format');
               return;
           }
-          loadJSONTask(train);
+          loadJSONTask(train, test);
           $('#load_task_file_input')[0].value = "";
           infoMsg("Loaded task training/" + task["name"]);
       })
@@ -219,6 +236,11 @@ function submitSolution() {
     submitted_output = CURRENT_OUTPUT_GRID.grid;
     if (reference_output.length != submitted_output.length) {
         errorMsg('Wrong solution.');
+	    success = 0;
+        error_counter = error_counter + 1;
+        if (error_counter > 2){
+	      nextTask()		
+		} 
         return
     }
     for (var i = 0; i < reference_output.length; i++){
@@ -226,6 +248,11 @@ function submitSolution() {
         for (var j = 0; j < ref_row.length; j++){
             if (ref_row[j] != submitted_output[i][j]) {
                 errorMsg('Wrong solution.');
+				  success = 0;
+                errorcounter = errorcounter + 1;
+        		  if (errorcounter > 2){
+	      				nextTask()		
+				  } 
                 return
 //add code to reset output grid OR proceed to next task... need counter for tries
             }
@@ -233,6 +260,8 @@ function submitSolution() {
 
     }
     infoMsg('Correct solution!');
+	 success = 1;
+	 nextTask();
 }
 
 function fillTestInput(inputGrid) {
