@@ -1,4 +1,5 @@
 # The Abstraction and Reasoning Corpus (ARC) - Adapted for online behavioral testing at BU Cognitive Neuroimaging Lab
+## WIP
 
 Changes made to BU version:
 

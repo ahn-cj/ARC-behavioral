@@ -16,16 +16,17 @@ var MAX_CELL_SIZE = 100;
 var ACTION_COUNT = 0;
 var PDDL = [];
 var task_num = 0;
-var task_length = 3
+var task_length = 5
 var success = 0; //this var defines a success or failure trial
 var error_counter = 0;
 
 function nextTask(){
 	task_num = task_num + 1;
+    error_counter = 0;
 	console.log("next button click");
 	presentTask();
-    if task_num == task_length
-    window.alert("This is the end of the study. Thank you for participating. Goodbye!");
+        //if task_num == task_length
+            //window.alert("This is the end of the study. Thank you for participating. Goodbye!");
 }   
 
 function resetTask() {
@@ -249,12 +250,11 @@ function submitSolution() {
             if (ref_row[j] != submitted_output[i][j]) {
                 errorMsg('Wrong solution.');
 				  success = 0;
-                errorcounter = errorcounter + 1;
-        		  if (errorcounter > 2){
+                error_counter = error_counter + 1;
+        		  if (error_counter > 2){
 	      				nextTask()		
 				  } 
                 return
-//add code to reset output grid OR proceed to next task... need counter for tries
             }
         }
 
