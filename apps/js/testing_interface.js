@@ -16,7 +16,7 @@ var MAX_CELL_SIZE = 100;
 var ACTION_COUNT = 0;
 var PDDL = [];
 var task_num = 0;
-var task_length = 5
+var task_length = 50;
 var success = 0; //this var defines a success or failure trial
 var error_counter = 0;
 
@@ -24,9 +24,16 @@ function nextTask(){
 	task_num = task_num + 1;
     error_counter = 0;
 	console.log("next button click");
-	setTimeout('presentTask()', 4000);
-        //if task_num == task_length
-            //alert("This is the end of the study. Thank you for participating. Goodbye!");
+	if (task_num == task_length) {
+        setTimeout('endOfStudy()', 4000);
+        }   else {
+        setTimeout('presentTask()', 4000);
+        }
+        
+}
+
+function endOfStudy() {
+	alert("You have reached the end of the study. Thank you for participating. Goodbye!");
 }   
 
 function resetTask() {
