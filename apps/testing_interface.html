@@ -40,7 +40,7 @@
 <p>Before starting the study, please make sure your environment is distraction-free, and put your browser is in fullscreen mode.</p>
 <p>On each task, you will see some grids with colored pixels to the left of the screen (Task Demonstration Grids), a large grid with colored pixels in the middle of the screen (Main Input Grid), and an empty grid to the right of the screen (Main Output Grid).</p>
 <p>The Task Demonstration Grids are example pairs of input-output solutions. Your job is to figure out the relationship between input and output from the Task Demonstration Grids, and use that knowledge to fill out the Main Output Grid based on the pattern in the Main Input Grid.</p>
-<p>To fill out the Main Output Grid, select a pixel color from the color picker below the grid, and click on pixels to color them in. You have the option to copy over the pixels from the Main Input Grid to the Main Output grid by clicking on the "Copy from Input" button. Clicking on the "Reset Grid" button will unfill all pixels in the Main Output Grid. Once you have completed your solution, click on the green "Submit" button.</p>
+<p>To fill out the Main Output Grid, select a pixel color from the color picker below the grid, and click on pixels to color them in. You have the option to copy over the pixels from the Main Input Grid to the Main Output grid by clicking on the "Copy from Input" button. Clicking on the "Reset Grid" button will unfill all pixels in the Main Output Grid. You can also manually change the grid size using the "Change Grid Size" option. Once you have completed your solution, click on the green "Submit" button.</p>
 <p>If your solution is correct, you will proceed to the next task. If it is incorrect, you have up to 3 tries to get the correct solution. Solve the tasks as quickly but accurately as possible.</p>
 				</div>
 				<div class="click_start"><b>Click "Start" to begin.</b>
@@ -69,7 +69,8 @@
 
                     <div id="load_task_control_btns">
                         <button onclick="submitSolution()" id="submit_solution_btn">Submit</button>
-                        <button onclick="nextTask()">Next task</button>
+                        <label id="error_display"></label>
+                        <label id="info_display"></label>
                     </div>
 
                     <div id="edition_view">
@@ -125,9 +126,6 @@
                             <div class="symbol_preview symbol_9" symbol="9"></div>
                         </div>
                     </div>
-
-                    <div id="error_display"></div>
-                    <div id="info_display"></div>
                 </div>
             </div>
         </div>

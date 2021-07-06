@@ -122,7 +122,7 @@ function errorMsg(msg) {
     $('#info_display').hide();
     $('#error_display').html(msg);
     $('#error_display').show();
-    $('#error_display').fadeOut(5000);
+    $('#error_display').fadeOut(4000);
 }
 
 function infoMsg(msg) {
@@ -133,5 +133,5 @@ function infoMsg(msg) {
     $('#error_display').hide();
     $('#info_display').html(msg);
     $('#info_display').show();
-    $('#info_display').fadeOut(5000);
+    $('#info_display').fadeOut(4000);
 }

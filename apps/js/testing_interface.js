@@ -24,9 +24,9 @@ function nextTask(){
 	task_num = task_num + 1;
     error_counter = 0;
 	console.log("next button click");
-	presentTask();
+	setTimeout('presentTask()', 4000);
         //if task_num == task_length
-            //window.alert("This is the end of the study. Thank you for participating. Goodbye!");
+            //alert("This is the end of the study. Thank you for participating. Goodbye!");
 }   
 
 function resetTask() {
@@ -252,7 +252,7 @@ function submitSolution() {
 				  success = 0;
                 error_counter = error_counter + 1;
         		  if (error_counter > 2){
-	      				nextTask()		
+	      			nextTask()		
 				  } 
                 return
             }

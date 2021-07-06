@@ -76,16 +76,14 @@
 #error_display {
     color: red;
     width: 100%;
-    float: left;
-    font-size: 14px;
-    margin: 20px;
+    float: center;
+    font-size: 18px;
 }
 
 #info_display {
     color: green;
     width: 100%;
-    float: left;
-    font-size: 14px;
-    margin: 20px;
+    float: center;
+    font-size: 18px;
 }
 
