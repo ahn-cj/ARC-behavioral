@@ -1,0 +1,22 @@
+{
+  "name": "arc-behavioral",
+  "version": "1.0.0",
+  "description": "App for ARC online behavioral testing at Boston University",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ahn-cj/ARC-behavioral.git"
+  },
+  "keywords": [
+    "ARC"
+  ],
+  "author": "caroline-ahn",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ahn-cj/ARC-behavioral/issues"
+  },
+  "homepage": "https://github.com/ahn-cj/ARC-behavioral#readme"
+}

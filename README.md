@@ -9,6 +9,8 @@ Changes made to BU version:
 - Added action tracking
 - Changed task selection from random to ordered
 - Added try count - auto-load next task after success or 3 failed tries
+- Added "End of Study" pop-up message
+- Misc cosmetic changes
 
 -- Original README.md from Francois Chollet --
 
