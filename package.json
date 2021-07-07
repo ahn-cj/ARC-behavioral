@@ -1,7 +1,7 @@
 {
-  "name": "my-static-site",
+  "name": "arc-online-behavioral",
   "version": "1.0.0",
-  "description": "This will load any static html site",
+  "description": "Stern lab ARC task",
   "scripts": {
     "start": "harp server --port $PORT"
   },
