@@ -40,9 +40,9 @@
 <p>Please play the following video for a visual demonstration of the task.
 <p>///youtube video///
 <p>Before starting the study, make sure your environment is distraction-free, and put your browser is in fullscreen mode.</p>
-<p>On each task, you will see some grids with colored pixels to the left of the screen (Task Demonstration Grids), a large grid with colored pixels in the middle of the screen (Main Input Grid), and an empty grid to the right of the screen (Main Output Grid).</p>
-<p>The Task Demonstration Grids are example pairs of input-output solutions. Your job is to figure out the relationship between input and output from the Task Demonstration Grids, and use that knowledge to fill out the Main Output Grid based on the pattern in the Main Input Grid.</p>
-<p>To fill out the Main Output Grid, select a pixel color from the color picker below the grid, and click on pixels to color them in. You have the option to copy over the pixels from the Main Input Grid to the Main Output grid by clicking on the "Copy from Input" button. Clicking on the "Reset Grid" button will unfill all pixels in the Main Output Grid. You can also manually change the grid size using the "Change Grid Size" option. Once you have completed your solution, click on the green "Submit" button.</p>
+<p>On each task, you will see some grids with colored pixels to the left of the screen (Test Demonstration Grids), a large grid with colored pixels in the middle of the screen (Test Input Grid), and an empty grid to the right of the screen (Test Output Grid).</p>
+<p>The Test Demonstration Grids are example pairs of input-output solutions. Your job is to figure out the relationship between input and output from the Test Demonstration Grids, and use that knowledge to fill out the Test Output Grid based on the pattern in the Test Input Grid.</p>
+<p>To fill out the Test Output Grid, select a pixel color from the color picker below the grid, and click on pixels to color them in. You have the option to copy over the pixels from the Test Input Grid to the Test Output grid by clicking on the "Copy from Input" button. Clicking on the "Reset Grid" button will unfill all pixels in the Test Output Grid. You can also manually change the grid size using the "Change Grid Size" option. Once you have completed your solution, click on the green "Submit" button.</p>
 <p>If your solution is correct, you will proceed to the next task. If it is incorrect, you have up to 3 tries to get the correct solution. Solve the tasks as quickly but accurately as possible.</p>
 				</div>
 				<div class="click_start"><b>Click "Start" to begin.</b>
@@ -85,7 +85,15 @@
 
                             <button onclick="copyFromInput()">Copy from input</button>
                             <button onclick="resetOutputGrid(true)">Reset grid</button>
+                            <button onclick="showInstructions()">Click to show/hide instructions</button>
                         </div>
+
+						<div id="instructions">
+							<p>On each task, you will see some grids with colored pixels to the left of the screen (Test Demonstration Grids), a large grid with colored pixels in the middle of the screen (Test Input Grid), and an empty grid to the right of the screen (Test Output Grid).</p>
+							<p>The Test Demonstration Grids are example pairs of input-output solutions. Your job is to figure out the relationship between input and output from the Test Demonstration Grids, and use that knowledge to fill out the Test Output Grid based on the pattern in the Test Input Grid.</p>
+							<p>To fill out the Test Output Grid, select a pixel color from the color picker below the grid, and click on pixels to color them in. You have the option to copy over the pixels from the Test Input Grid to the Test Output grid by clicking on the "Copy from Input" button. Clicking on the "Reset Grid" button will unfill all pixels in the Test Output Grid. You can also manually change the grid size using the "Change Grid Size" option. Once you have completed your solution, click on the green "Submit" button.</p>
+							<p>If your solution is correct, you will proceed to the next task. If it is incorrect, you have up to 3 tries to get the correct solution. Solve the tasks as quickly but accurately as possible.</p>
+						</div>
 
                         <div id="output_grid">
                             <div class="edition_grid selectable_grid">

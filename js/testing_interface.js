@@ -16,7 +16,8 @@ var MAX_CELL_SIZE = 100;
 var ACTION_COUNT = 0;
 var PDDL = [];
 var task_num = 0;
-var task_length = 50;
+var task_break = 25; //halfway break
+var task_length = 50; //end of session
 var success = 0; //this var defines a success or failure trial
 var error_counter = 0;
 
@@ -26,10 +27,16 @@ function nextTask(){
 	console.log("next button click");
 	if (task_num == task_length) {
         setTimeout('endOfStudy()', 4000);
-        }   else {
-        setTimeout('presentTask()', 4000);
-        }
-        
+    }	else {
+    	setTimeout('presentTask()', 4000);
+    		if (task_num == task_break) {
+				setTimeout('studyBreak()', 4000);
+			}
+    	}
+}
+
+function studyBreak() {
+	alert("You may now take a break. Click OK to continue.");
 }
 
 function endOfStudy() {
@@ -62,6 +69,15 @@ function syncFromDataGridToEditionGrid() {
 function getSelectedSymbol() {
     selected = $('#symbol_picker .selected-symbol-preview')[0];
     return $(selected).attr('symbol');
+}
+
+function showInstructions() {
+var x = document.getElementById("instructions");
+  if (x.style.display === "block") {
+    x.style.display = "none";
+  } else {
+    x.style.display = "block";
+  }
 }
 
 function setUpEditionGridListeners(jqGrid) {
@@ -243,7 +259,7 @@ function submitSolution() {
     reference_output = TEST_PAIRS[CURRENT_TEST_PAIR_INDEX]['output'];
     submitted_output = CURRENT_OUTPUT_GRID.grid;
     if (reference_output.length != submitted_output.length) {
-        errorMsg('Wrong solution.');
+        errorMsg(`Wrong solution. ${2 - error_counter} out of 3 attempts remaining.`);
 	    success = 0;
         error_counter = error_counter + 1;
         if (error_counter > 2){
@@ -255,7 +271,7 @@ function submitSolution() {
         ref_row = reference_output[i];
         for (var j = 0; j < ref_row.length; j++){
             if (ref_row[j] != submitted_output[i][j]) {
-                errorMsg('Wrong solution.');
+                errorMsg('Wrong solution. ${2 - error_counter} out of 3 attempts remaining.');
 				  success = 0;
                 error_counter = error_counter + 1;
         		  if (error_counter > 2){

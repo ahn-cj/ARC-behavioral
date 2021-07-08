@@ -58,6 +58,17 @@ body {
     padding-bottom: 5px;
 }
 
+#instructions {
+	float: left;
+	text-align: left;
+    background: white;
+    margin-bottom: 10px;
+    width: 96%;
+    padding-left: 10px;
+    padding-right: 10px;
+    display: none;
+}
+
 #resize_control_btns {
     width: 100%;
     float:left;
