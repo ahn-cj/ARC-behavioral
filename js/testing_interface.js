@@ -16,8 +16,9 @@ var MAX_CELL_SIZE = 100;
 var ACTION_COUNT = 0;
 var PDDL = [];
 var task_num = 0;
-var task_break = 25; //halfway break
-var task_length = 50; //end of session
+var task_break_1 = 25; //break no.1
+var task_break_2 = 50; //break no.2
+var task_length = 75; //end of session
 var success = 0; //this var defines a success or failure trial
 var error_counter = 0;
 
@@ -29,7 +30,7 @@ function nextTask(){
         setTimeout('endOfStudy()', 4000);
     }	else {
     	setTimeout('presentTask()', 4000);
-    		if (task_num == task_break) {
+    		if (task_num == task_break_1 || task_num == task_break_2) {
 				setTimeout('studyBreak()', 4000);
 			}
     	}
