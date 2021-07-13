@@ -1,0 +1,7 @@
+{
+    "app_id": "arc-online-behavioral-nzztl",
+    "config_version": 20210101,
+    "name": "ARC-online-behavioral",
+    "location": "US-VA",
+    "deployment_model": "LOCAL"
+}
