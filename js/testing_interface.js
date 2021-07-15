@@ -260,7 +260,7 @@ function submitSolution() {
     reference_output = TEST_PAIRS[CURRENT_TEST_PAIR_INDEX]['output'];
     submitted_output = CURRENT_OUTPUT_GRID.grid;
     if (reference_output.length != submitted_output.length) {
-        errorMsg('Wrong solution. ${2 - error_counter} out of 3 attempts remaining.');
+        errorMsg(`Wrong solution. ${2 - error_counter} out of 3 attempts remaining.`);
 	    success = 0;
         error_counter = error_counter + 1;
         if (error_counter > 2){
@@ -272,7 +272,7 @@ function submitSolution() {
         ref_row = reference_output[i];
         for (var j = 0; j < ref_row.length; j++){
             if (ref_row[j] != submitted_output[i][j]) {
-                errorMsg('Wrong solution. ${2 - error_counter} out of 3 attempts remaining.');
+                errorMsg(`Wrong solution. ${2 - error_counter} out of 3 attempts remaining.`);
 				  success = 0;
                 error_counter = error_counter + 1;
         		  if (error_counter > 2){
