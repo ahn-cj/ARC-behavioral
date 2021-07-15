@@ -260,7 +260,7 @@ function submitSolution() {
     reference_output = TEST_PAIRS[CURRENT_TEST_PAIR_INDEX]['output'];
     submitted_output = CURRENT_OUTPUT_GRID.grid;
     if (reference_output.length != submitted_output.length) {
-        errorMsg(`Wrong solution. ${2 - error_counter} out of 3 attempts remaining.`);
+        errorMsg('Wrong solution. ${2 - error_counter} out of 3 attempts remaining.');
 	    success = 0;
         error_counter = error_counter + 1;
         if (error_counter > 2){
