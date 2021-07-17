@@ -106,6 +106,34 @@ function setUpEditionGridListeners(jqGrid) {
                 PDDL.push("EDIT " + cell[0].getAttribute("x") + " " + cell[0].getAttribute("y") + " " + symbol)
         }
     });
+
+    //add drag and drop
+    var clicking = false;
+
+    jqGrid.find('.cell').mousedown(function(){
+        clicking = true;
+    });
+
+    jqGrid.find('.cell').mouseup(function(){
+        clicking = false;
+    })
+
+    jqGrid.find('.cell').mousemove(function(){
+        if(clicking == false) return;
+        mode = $('input[name=tool_switching]:checked').val();
+
+        if (mode == 'trace') {
+            // Else: fill just this cell.
+            cell = $(event.target);
+            symbol = getSelectedSymbol();
+            setCellSymbol(cell, symbol);
+
+            //if (typeof symbol !== 'undefined')
+            //    PDDL.push("EDIT " + cell[0].getAttribute("x") + " " + cell[0].getAttribute("y") + " " + symbol)
+        }
+        // Mouse click + moving logic here
+        
+    });       
 }
 
 function resizeOutputGrid(from_ui) {
