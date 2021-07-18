@@ -23,6 +23,8 @@ var success = 0; //this var defines a success or failure trial
 var error_counter = 0;
 
 function nextTask(){
+    //disabled submit button
+    $('#submit_solution_btn').attr('disabled','disabled');
 	task_num = task_num + 1;
     error_counter = 0;
 	console.log("next button click");
@@ -194,6 +196,9 @@ function fillPairPreview(pairId, inputGrid, outputGrid) {
 
 function loadJSONTask(train, test) {
     resetTask();
+    //enable submit button
+    $('#submit_solution_btn').removeAttr('disabled');
+
     $('#modal_bg').hide();
     $('#error_display').hide();
     $('#info_display').hide();
@@ -258,6 +263,7 @@ function presentTask() {
               return;
           }
           loadJSONTask(train, test);
+
           //$('#load_task_file_input')[0].value = "";
           infoMsg("Loaded task training/" + task["name"]);
       })
@@ -301,7 +307,7 @@ function submitSolution() {
         for (var j = 0; j < ref_row.length; j++){
             if (ref_row[j] != submitted_output[i][j]) {
                 errorMsg(`Wrong solution. ${2 - error_counter} out of 3 attempts remaining.`);
-				  success = 0;
+				success = 0;
                 error_counter = error_counter + 1;
         		  if (error_counter > 2){
 	      			nextTask()		
@@ -312,8 +318,8 @@ function submitSolution() {
 
     }
     infoMsg('Correct solution!');
-	 success = 1;
-	 nextTask();
+	success = 1;
+	nextTask();
 }
 
 function fillTestInput(inputGrid) {
