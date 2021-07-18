@@ -258,7 +258,7 @@ function presentTask() {
               return;
           }
           loadJSONTask(train, test);
-          $('#load_task_file_input')[0].value = "";
+          //$('#load_task_file_input')[0].value = "";
           infoMsg("Loaded task training/" + task["name"]);
       })
       .error(function(){
