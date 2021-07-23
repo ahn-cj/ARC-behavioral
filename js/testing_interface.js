@@ -22,12 +22,9 @@ var task_length = 75; //end of session
 var success = 0; //this var defines a success or failure trial
 var error_counter = 0;
 
-//Progress Bar
-var progBar = document.getElementById("progress");
-var percent = document.getElementById("num_value");
-function updateProgress(task_num) {
-	progBar.value = task_num;
-	percent.innerHTML = Math.round((task_num/task_length)*100)+"%";
+// Progress
+function showProgress() {
+   document.getElementById("percentage").innerHTML = Math.round((task_num/task_length)*100)+"%";
 }
 
 function nextTask(){
@@ -44,7 +41,6 @@ function nextTask(){
 				setTimeout('studyBreak()', 4000);
 			}
     	}
-    updateProgress(task_num);
 }
 
 function studyBreak() {
@@ -272,9 +268,7 @@ function presentTask() {
               return;
           }
           loadJSONTask(train, test);
-
-          //$('#load_task_file_input')[0].value = "";
-          infoMsg("Loaded task training/" + task["name"]);
+          //infoMsg("Loaded " + task["name"]);
       })
       .error(function(){
         errorMsg('Error loading task');
@@ -283,6 +277,8 @@ function presentTask() {
     .error(function(){
       errorMsg('Error loading task list');
     });
+    showProgress();
+    updateProgress();
 }
 
 function nextTestInput() {
