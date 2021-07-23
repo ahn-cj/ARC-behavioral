@@ -22,10 +22,18 @@ var task_length = 75; //end of session
 var success = 0; //this var defines a success or failure trial
 var error_counter = 0;
 
+//Progress Bar
+var progBar = document.getElementById("progress");
+var percent = document.getElementById("num_value");
+function updateProgress(task_num) {
+	progBar.value = task_num;
+	percent.innerHTML = Math.round((task_num/task_length)*100)+"%";
+}
+
 function nextTask(){
     //disabled submit button
     $('#submit_solution_btn').attr('disabled','disabled');
-	task_num = task_num + 1;
+	task_num++;
     error_counter = 0;
 	console.log("next button click");
 	if (task_num == task_length) {
@@ -36,10 +44,11 @@ function nextTask(){
 				setTimeout('studyBreak()', 4000);
 			}
     	}
+    updateProgress(task_num);
 }
 
 function studyBreak() {
-	alert("You may now take a break. Click OK to continue.");
+	alert(`You may now take a 10 minute break. Please notify the research staff if you are taking a break. Click OK to continue.`);
 }
 
 function endOfStudy() {
