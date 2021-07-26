@@ -26,9 +26,25 @@ var error_counter = 0;
 function showProgress() {
    document.getElementById("percentage").innerHTML = Math.round((task_num/task_length)*100)+"%";
 }
-
+function createCORSRequest(method, url) {
+    var xhr = new XMLHttpRequest();
+    if ("withCredentials" in xhr) {
+                    // XHR for Chrome/Firefox/Opera/Safari.
+        xhr.open(method, url, true);
+    } 
+    else if (typeof XDomainRequest != "undefined") {
+        // XDomainRequest for IE.
+        xhr = new XDomainRequest();
+        xhr.open(method, url);
+    } 
+    else {
+        // CORS not supported.
+        xhr = null;
+        }
+        return xhr;
+    }
 function sendData(){
-	var text = '{user:"caroline","Task1:"","Task2":"","Task3":""}';
+	var text = '{"username":"caroline","Task1":"0","Task2":"1","Task3":"2"}';
 	var jsondata = JSON.parse(text);
 	var data = JSON.stringify(jsondata);
 	var url = '127.0.0.1/3000';
