@@ -27,6 +27,25 @@ function showProgress() {
    document.getElementById("percentage").innerHTML = Math.round((task_num/task_length)*100)+"%";
 }
 
+function sendData(){
+	var text = '{user:"caroline","Task1:"","Task2":"","Task3":""}';
+	var jsondata = JSON.parse(text);
+	var data = JSON.stringify(jsondata);
+	var url = '127.0.0.1/3000';
+	var xhr = createCORSRequest('POST',url)
+	if (!xhr){
+		throw new Error('CORS not supported');
+	} 
+	xhr.setRequestHeader('Content-Type','application/json');
+	xhr.onload = function(){
+		var text = xhr.responseText;	
+	};
+	xhr.onerror = function(){
+		alert("aaaaaa");	
+	};
+	xhr.send(data);
+}
+
 function nextTask(){
     //disabled submit button
     $('#submit_solution_btn').attr('disabled','disabled');
@@ -295,6 +314,7 @@ function nextTestInput() {
 }
 
 function submitSolution() {
+	sendData();
     syncFromEditionGridToDataGrid();
     reference_output = TEST_PAIRS[CURRENT_TEST_PAIR_INDEX]['output'];
     submitted_output = CURRENT_OUTPUT_GRID.grid;
