@@ -26,6 +26,8 @@ var error_counter = 0;
 function showProgress() {
    document.getElementById("percentage").innerHTML = Math.round((task_num/task_length)*100)+"%";
 }
+
+//CORS
 function createCORSRequest(method, url) {
     var xhr = new XMLHttpRequest();
     if ("withCredentials" in xhr) {
@@ -43,11 +45,12 @@ function createCORSRequest(method, url) {
         }
         return xhr;
     }
+    
 function sendData(){
-	var text = '{"username":"caroline","Task1":"0","Task2":"1","Task3":"2"}';
+	var text = '{ "subj_ID":"caroline", "Task1":0, "Task2":1, "Task3":2 }';
 	var jsondata = JSON.parse(text);
 	var data = JSON.stringify(jsondata);
-	var url = '127.0.0.1/3000';
+	var url = 'http://127.0.0.1:3000/Participants';
 	var xhr = createCORSRequest('POST',url)
 	if (!xhr){
 		throw new Error('CORS not supported');
@@ -57,7 +60,7 @@ function sendData(){
 		var text = xhr.responseText;	
 	};
 	xhr.onerror = function(){
-		alert("aaaaaa");	
+		alert("will this thing EVER work..?!");	
 	};
 	xhr.send(data);
 }
@@ -313,7 +316,6 @@ function presentTask() {
       errorMsg('Error loading task list');
     });
     showProgress();
-    updateProgress();
 }
 
 function nextTestInput() {
