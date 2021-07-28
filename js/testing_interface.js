@@ -22,6 +22,17 @@ var task_length = 75; //end of session
 var success = 0; //this var defines a success or failure trial
 var error_counter = 0;
 
+//data structure
+var jsondata = new Object(); //JSON.parse(text);
+var taskArray = [];
+var task = new Object();
+var attemptArray = [];
+var attempt = new Object();
+var actionArray = [];
+var action = new Object();
+
+var counter = 0;
+
 // Progress
 function showProgress() {
    document.getElementById("percentage").innerHTML = Math.round((task_num/task_length)*100)+"%";
@@ -45,10 +56,8 @@ function createCORSRequest(method, url) {
         }
         return xhr;
     }
-    
-function sendData(){
-	var text = '{ "subj_ID":"caroline", "Task1":0, "Task2":1, "Task3":2 }';
-	var jsondata = JSON.parse(text);
+
+function createSubj(){
 	var data = JSON.stringify(jsondata);
 	var url = 'http://127.0.0.1:3000/Participants';
 	var xhr = createCORSRequest('POST',url)
@@ -60,9 +69,43 @@ function sendData(){
 		var text = xhr.responseText;	
 	};
 	xhr.onerror = function(){
-		alert("will this thing EVER work..?!");	
+		alert("Error sending data to server");	
 	};
 	xhr.send(data);
+	taskArray = [];
+	attemptArray = [];
+	actionArray = [];
+}
+
+function sendData(){
+	attempt = actionArray;
+	attemptArray.push(attempt);
+	task = attemptArray;
+	taskArray.push(task);
+	jsondata.session = taskArray;
+	var data = JSON.stringify(jsondata);
+	var url = 'http://127.0.0.1:3000/Participants';
+	var xhr = createCORSRequest('PUT',url)
+	if (!xhr){
+		throw new Error('CORS not supported');
+	} 
+	xhr.setRequestHeader('Content-Type','application/json');
+	xhr.onload = function(){
+		var text = xhr.responseText;	
+	};
+	xhr.onerror = function(){
+		alert("Error sending data to server");	
+	};
+	xhr.send(data);
+	attemptArray = [];
+	actionArray = [];
+}
+
+function beginTask(){
+	jsondata.subj_ID = Math.random().toString(36).substring(2,10);
+	jsondata.start_time = Date()
+	createSubj();
+	presentTask();
 }
 
 function nextTask(){
@@ -82,10 +125,19 @@ function nextTask(){
 }
 
 function studyBreak() {
+	action = new Object();
+	action.desc = "break";
+	action.time = Date.now();
+	actionArray.push(action);
 	alert(`You may now take a 10 minute break. Please notify the research staff if you are taking a break. Click OK to continue.`);
 }
 
 function endOfStudy() {
+	action = new Object();
+	action.desc = "end study";
+	action.time = Date.now();
+	action.timestamp = Date();
+	actionArray.push(action);
 	alert("You have reached the end of the study. Thank you for participating. Goodbye!");
 }   
 
@@ -118,12 +170,16 @@ function getSelectedSymbol() {
 }
 
 function showInstructions() {
-var x = document.getElementById("instructions");
-  if (x.style.display === "block") {
-    x.style.display = "none";
-  } else {
-    x.style.display = "block";
-  }
+	var x = document.getElementById("instructions");
+ 	if (x.style.display === "block") {
+	  x.style.display = "none";
+ 	 } else {
+   		 x.style.display = "block";
+ 	 }
+	action = new Object();
+	action.desc = "show instructions";
+	action.time = Date.now();
+	actionArray.push(action);
 }
 
 function setUpEditionGridListeners(jqGrid) {
@@ -160,10 +216,19 @@ function setUpEditionGridListeners(jqGrid) {
         mode = $('input[name=tool_switching]:checked').val();
 
         if (mode == 'trace') {
+
+        	
             // Else: fill just this cell.
             cell = $(event.target);
             symbol = getSelectedSymbol();
             setCellSymbol(cell, symbol);
+            action = new Object();
+			action.desc = "edit";
+			action.x = cell[0].getAttribute("x");
+			action.y = cell[0].getAttribute("y");
+			action.color = symbol;
+			action.time = Date.now();
+			actionArray.push(action);
         }
     });
 
@@ -177,10 +242,17 @@ function setUpEditionGridListeners(jqGrid) {
 
         if (mode == 'trace') {
             // Else: fill just this cell.
+            
             cell = $(event.target);
             symbol = getSelectedSymbol();
             setCellSymbol(cell, symbol);
-
+			action = new Object();
+			action.desc = "edit";
+			action.x = cell[0].getAttribute("x");
+			action.y = cell[0].getAttribute("y");
+			action.color = symbol;
+			action.time = Date.now();
+			actionArray.push(action);
             //if (typeof symbol !== 'undefined')
             //    PDDL.push("EDIT " + cell[0].getAttribute("x") + " " + cell[0].getAttribute("y") + " " + symbol)
         }
@@ -199,7 +271,12 @@ function resizeOutputGrid(from_ui) {
     dataGrid = JSON.parse(JSON.stringify(CURRENT_OUTPUT_GRID.grid));
     CURRENT_OUTPUT_GRID = new Grid(height, width, dataGrid);
     refreshEditionGrid(jqGrid, CURRENT_OUTPUT_GRID);
-
+	action = new Object();
+	action.desc = "resize grid";
+	action.height = height;
+	action.width = width;
+	action.time = Date.now();
+	actionArray.push(action);
     if (from_ui) PDDL.push("RESIZE " + CURRENT_OUTPUT_GRID['height'] + " " + CURRENT_OUTPUT_GRID['width']);
 }
 
@@ -208,6 +285,10 @@ function resetOutputGrid(from_ui) {
     CURRENT_OUTPUT_GRID = new Grid(3, 3);
     syncFromDataGridToEditionGrid();
     resizeOutputGrid(false);
+    action = new Object();
+	action.desc = "reset grid";
+	action.time = Date.now();
+	actionArray.push(action);
 
     if (from_ui) PDDL.push('RESET_GRID')
 }
@@ -219,6 +300,10 @@ function copyFromInput() {
     $('#output_grid_size').val(CURRENT_OUTPUT_GRID.height + 'x' + CURRENT_OUTPUT_GRID.width);
 
     PDDL.push('COPY_INPUT');
+    action = new Object();
+	action.desc = "copyfrominput";
+	action.time = Date.now();
+	actionArray.push(action);
 }
 
 function fillPairPreview(pairId, inputGrid, outputGrid) {
@@ -301,11 +386,18 @@ function loadTaskFromFile(e) {
 
 function presentTask() {
     var subset = "training";
+    //attemptArray =[]; //clear attempt array each time a task is presented
+    task = new Object();
+    attempt = new Object();
+    action = new Object();
+	action.desc = "new task";
+	action.time = Date.now();
+	actionArray.push(action);
     $.getJSON("https://api.github.com/repos/ahn-cj/ARC-behavioral/contents/data/" + subset, function(tasks) {
-      var task = tasks[task_num];
+      var task_presented = tasks[task_num];
 	       console.log(Math.floor(Math.random() * task_length))
-      TASK_ID = task['name'];
-      $.getJSON(task["download_url"], function(json) {
+      TASK_ID = task_presented['name'];
+      $.getJSON(task_presented["download_url"], function(json) {
           try {
               train = json['train'];
 				test = json['test'];
@@ -314,7 +406,6 @@ function presentTask() {
               return;
           }
           loadJSONTask(train, test);
-          //infoMsg("Loaded " + task["name"]);
       })
       .error(function(){
         errorMsg('Error loading task');
@@ -340,11 +431,15 @@ function nextTestInput() {
 }
 
 function submitSolution() {
+	action = new Object();
+	action.desc = "submit";
+	action.time = Date.now();
+	actionArray.push(action);
 	sendData();
     syncFromEditionGridToDataGrid();
     reference_output = TEST_PAIRS[CURRENT_TEST_PAIR_INDEX]['output'];
     submitted_output = CURRENT_OUTPUT_GRID.grid;
-    if (reference_output.length != submitted_output.length) {
+ /*   if (reference_output.length != submitted_output.length) {
         errorMsg(`Wrong solution. ${2 - error_counter} out of 3 attempts remaining.`);
 	    success = 0;
         error_counter = error_counter + 1;
@@ -352,7 +447,7 @@ function submitSolution() {
 	      nextTask()		
 		} 
         return
-    }
+    }*/
     for (var i = 0; i < reference_output.length; i++){
         ref_row = reference_output[i];
         for (var j = 0; j < ref_row.length; j++){
@@ -360,6 +455,7 @@ function submitSolution() {
                 errorMsg(`Wrong solution. ${2 - error_counter} out of 3 attempts remaining.`);
 				success = 0;
                 error_counter = error_counter + 1;
+                attempt = new Object(); //reset attempt 
         		  if (error_counter > 2){
 	      			nextTask()		
 				  } 
@@ -431,7 +527,11 @@ $(document).ready(function () {
             $(preview).removeClass('selected-symbol-preview');
         })
         symbol_preview.addClass('selected-symbol-preview');
-
+		action = new Object();
+		action.desc = "select color";
+		action.color = getSelectedSymbol();
+		action.time = Date.now();
+		actionArray.push(action);
         toolMode = $('input[name=tool_switching]:checked').val();
         if (toolMode == 'select') {
             $('.edition_grid').find('.ui-selected').each(function(i, cell) {
