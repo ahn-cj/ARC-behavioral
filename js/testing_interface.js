@@ -59,7 +59,7 @@ function createCORSRequest(method, url) {
 
 function createSubj(){
 	var data = JSON.stringify(jsondata);
-	var url = 'http://127.0.0.1:3000/Participants';
+	var url = 'http://arc-online-behavioral-backend.herokuapp.com/Participants';
 	var xhr = createCORSRequest('POST',url)
 	if (!xhr){
 		throw new Error('CORS not supported');
@@ -84,7 +84,7 @@ function sendData(){
 	taskArray.push(task);
 	jsondata.session = taskArray;
 	var data = JSON.stringify(jsondata);
-	var url = 'http://127.0.0.1:3000/Participants';
+	var url = 'http://arc-online-behavioral-backend.herokuapp.com/Participants';
 	var xhr = createCORSRequest('PUT',url)
 	if (!xhr){
 		throw new Error('CORS not supported');
