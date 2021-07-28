@@ -157,6 +157,14 @@ function setUpEditionGridListeners(jqGrid) {
 
     jqGrid.find('.cell').mousedown(function(){
         clicking = true;
+        mode = $('input[name=tool_switching]:checked').val();
+
+        if (mode == 'trace') {
+            // Else: fill just this cell.
+            cell = $(event.target);
+            symbol = getSelectedSymbol();
+            setCellSymbol(cell, symbol);
+        }
     });
 
     jqGrid.find('.cell').mouseup(function(){
