@@ -412,6 +412,7 @@ function presentTask() {
     });
     action.desc = "new task";
 	action.taskname = TASK_ID;
+	action.attempt = 1;
 	action.time = Date.now();
 	actionArray.push(action);
     showProgress();
@@ -449,6 +450,9 @@ function submitSolution() {
 				sendData();
                 attempt = new Object(); //reset attempt
                 action = new Object();
+                action.desc = "new attempt"
+                action.taskname = TASK_ID;
+				action.time = Date.now();
                 action.attempt = error_counter + 1;
                 actionArray.push(action);
         		  if (error_counter > 2){
