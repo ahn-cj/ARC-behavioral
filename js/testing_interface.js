@@ -82,7 +82,8 @@ function sendData(){
 	attemptArray.push(attempt);
 	task = attemptArray;
 	taskArray.push(task);
-	jsondata.session = taskArray;
+	session = taskArray;
+	jsondata.session = session;
 	var data = JSON.stringify(jsondata);
 	var url = 'https://arc-online-behavioral-backend.herokuapp.com/Participants';
 	var xhr = createCORSRequest('PUT',url)

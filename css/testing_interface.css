@@ -1,6 +1,7 @@
 body {
-    font-family: 'Times New Roman', Times, serif;
+    font-family: Arial, Helvetica, sans-serif;
     min-width: 1410px;
+    background: #D8DADC;
 }
 
 #workspace {
@@ -11,19 +12,24 @@ body {
 
 #demonstration_examples_view {
     float: left;
-    width: 450px;
+    width: 448px;
     margin: 10px;
     margin-right: 5px;
-    background-color: #d5d5d5;
+    background-color: #C3C6C8;
+    min-height: 850px;
+    border-radius: 8px;
+	border: 1px solid #AEB2B9;
 }
 
 #evaluation_view {
     float: left;
-    width: 930px;
+    width: 928px;
     margin: 10px;
     margin-left: 5px;
-    background-color: #d5d5d5;
+    background-color: #C3C6C8;
     min-height: 850px;
+    border-radius: 8px;
+	border: 1px solid #AEB2B9;
 }
 
 #evaluation-input-view {
@@ -46,27 +52,33 @@ body {
     width: 100%;
     padding-top: 5px;
     padding-bottom: 5px;
+    border-radius: 8px;
+	border: 1px solid #AEB2B9;
 }
 
 #display_task_progress {
     float: left;
     margin-top: 10px;
-    margin-bottom: 0;
+    margin-bottom: 5px;
     background: white;
-    width: 100%;
+    width: 98%;
+    padding-left: 10px;
     padding-top: 5px;
     padding-bottom: 5px;
-    padding-left: 10px;
+    border-radius: 8px;
+	border: 1px solid #AEB2B9;
 }
 
 #editor_grid_control_btns {
     float: left;
-    margin-top: 10px;
+    margin-top: 5px;
     margin-bottom: 10px;
     background: white;
     width: 100%;
     padding-top: 5px;
     padding-bottom: 5px;
+    border-radius: 8px;
+	border: 1px solid #AEB2B9;
 }
 
 #instructions {
@@ -78,6 +90,9 @@ body {
     padding-left: 10px;
     padding-right: 10px;
     display: none;
+    border-radius: 8px;
+	border: 1px solid #AEB2B9;
+	font-weight: normal;
 }
 
 #resize_control_btns {
@@ -141,7 +156,7 @@ input, button {
 .pair_preview {
     height: 200px;
     padding: 5px;
-    border-bottom: solid 1px #a1a1a1;
+    border-bottom: solid 2px #D8DADC;
 }
 .input_preview {
     height: 200px;
@@ -161,14 +176,18 @@ input, button {
     padding-top: 5px;
     padding-bottom: 5px;
     margin-bottom: 10px;
+    border-radius: 8px;
+	border: 1px solid #AEB2B9;
 }
 
 #task_demo_header {
     margin: 10px;
+    border-radius: 8px;
+	border: 1px solid #AEB2B9;
 }
 
 #modal_bg {
-    background-color: black;
+    background-color: #C3C6C8;
     width: 1410px;
     min-height: 10000px;
     position: absolute;
@@ -184,6 +203,8 @@ input, button {
     padding: 100px;
     width: 500px;
     margin-top: 100px;
+    border-radius: 8px;
+	border: 1px solid #AEB2B9;
 }
 
 #modal input {

@@ -1,10 +1,10 @@
 .cell {
     width: 100px;
     height: 100px;
-    border-left: 1px solid #555;
-    border-top: 1px solid #555;
+    border-left: 1px solid #BDC2C9;
+    border-top: 1px solid #BDC2C9;
     float: left;
-    background-color: #000;
+    background-color: #FFFFFF;
 }
 
 .row {
@@ -12,34 +12,34 @@
 }
 
 .symbol_0 {
-    background-color: #000;
+    background-color: #FFFFFF;
 }
 .symbol_1 {
-    background-color: #0074D9; /* blue */
+    background-color: #55A1C7; /* blue */
 }
 .symbol_2 {
-    background-color: #FF4136; /* red */
+    background-color: #C54038; /* red */
 }
 .symbol_3 {
-    background-color: #2ECC40; /* green */
+    background-color: #40B04D; /* green */
 }
 .symbol_4 {
-    background-color: #FFDC00; /* yellow */
+    background-color: #EBDB3E; /* yellow */
 }
 .symbol_5 {
-    background-color: #AAAAAA; /* grey */
+    background-color: #898585; /* grey */
 }
 .symbol_6 {
-    background-color: #F012BE; /* fuschia */
+    background-color: #E377DE; /* fuschia */
 }
 .symbol_7 {
-    background-color: #FF851B; /* orange */
+    background-color: #F7982D; /* orange */
 }
 .symbol_8 {
-    background-color: #7FDBFF; /* teal */
+    background-color: #479A87; /* teal */
 }
 .symbol_9 {
-    background-color: #870C25; /* brown */
+    background-color: #704B23; /* brown */
 }
 
 
