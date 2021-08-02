@@ -396,7 +396,7 @@ function presentTask() {
       $.getJSON(task_presented["download_url"], function(json) {
           try {
               train = json['train'];
-				test = json['test'];
+			  test = json['test'];
           } catch (e) {
               errorMsg('Bad file format');
               return;
@@ -410,8 +410,9 @@ function presentTask() {
     .error(function(){
       errorMsg('Error loading task list');
     });
+    console.log(task_num + 1);
     action.desc = "new task";
-	action.taskname = TASK_ID;
+	action.taskid = task_num + 1;
 	action.attempt = 1;
 	action.time = Date.now();
 	actionArray.push(action);
