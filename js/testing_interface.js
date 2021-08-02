@@ -444,18 +444,18 @@ function submitSolution() {
                 action = new Object();
 				action.desc = "submit";
 				action.time = Date.now();
-				action.outcome = fail;
+				action.outcome = "fail";
 				actionArray.push(action);
 				sendData();
                 attempt = new Object(); //reset attempt
                 action = new Object();
-                action.attempt = ${error_counter + 1}
+                action.attempt = error_counter + 1;
                 actionArray.push(action);
         		  if (error_counter > 2){
 	      			action = new Object();
 					action.desc = "submit";
 					action.time = Date.now();
-					action.outcome = fail;
+					action.outcome = "fail";
 					actionArray.push(action);
 					sendData();
 	      			nextTask();		
@@ -470,7 +470,7 @@ function submitSolution() {
 	action = new Object();
 	action.desc = "submit";
 	action.time = Date.now();
-	action.outcome = success;
+	action.outcome = "success";
 	actionArray.push(action);
 	sendData();
 	nextTask();
