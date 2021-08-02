@@ -82,8 +82,7 @@ function sendData(){
 	attemptArray.push(attempt);
 	task = attemptArray;
 	taskArray.push(task);
-	session = taskArray;
-	jsondata.session = session;
+	jsondata.session = taskArray;
 	var data = JSON.stringify(jsondata);
 	var url = 'https://arc-online-behavioral-backend.herokuapp.com/Participants';
 	var xhr = createCORSRequest('PUT',url)
@@ -104,7 +103,7 @@ function sendData(){
 
 function beginTask(){
 	jsondata.subj_ID = Math.random().toString(36).substring(2,10);
-	jsondata.start_time = Date()
+	jsondata.start_time = Date();
 	createSubj();
 	presentTask();
 }
@@ -129,6 +128,7 @@ function studyBreak() {
 	action = new Object();
 	action.desc = "break";
 	action.time = Date.now();
+	action.timestamp = Date();
 	actionArray.push(action);
 	alert(`You may now take a 10 minute break. Please notify the research staff if you are taking a break. Click OK to continue.`);
 }
@@ -217,8 +217,6 @@ function setUpEditionGridListeners(jqGrid) {
         mode = $('input[name=tool_switching]:checked').val();
 
         if (mode == 'trace') {
-
-        	
             // Else: fill just this cell.
             cell = $(event.target);
             symbol = getSelectedSymbol();
@@ -391,9 +389,6 @@ function presentTask() {
     task = new Object();
     attempt = new Object();
     action = new Object();
-	action.desc = "new task";
-	action.time = Date.now();
-	actionArray.push(action);
     $.getJSON("https://api.github.com/repos/ahn-cj/ARC-behavioral/contents/data/" + subset, function(tasks) {
       var task_presented = tasks[task_num];
 	       console.log(Math.floor(Math.random() * task_length))
@@ -415,6 +410,10 @@ function presentTask() {
     .error(function(){
       errorMsg('Error loading task list');
     });
+    action.desc = "new task";
+	action.taskname = TASK_ID;
+	action.time = Date.now();
+	actionArray.push(action);
     showProgress();
 }
 
@@ -425,30 +424,16 @@ function nextTestInput() {
     }
     CURRENT_TEST_PAIR_INDEX += 1;
     values = TEST_PAIRS[CURRENT_TEST_PAIR_INDEX]['input'];
-    CURRENT_INPUT_GRID = convertSerializedGridToGridObject(values)
+    CURRENT_INPUT_GRID = convertSerializedGridToGridObject(values);
     fillTestInput(CURRENT_INPUT_GRID);
     $('#current_test_input_id_display').html(CURRENT_TEST_PAIR_INDEX + 1);
     $('#total_test_input_count_display').html(test.length);
 }
 
 function submitSolution() {
-	action = new Object();
-	action.desc = "submit";
-	action.time = Date.now();
-	actionArray.push(action);
-	sendData();
     syncFromEditionGridToDataGrid();
     reference_output = TEST_PAIRS[CURRENT_TEST_PAIR_INDEX]['output'];
     submitted_output = CURRENT_OUTPUT_GRID.grid;
- /*   if (reference_output.length != submitted_output.length) {
-        errorMsg(`Wrong solution. ${2 - error_counter} out of 3 attempts remaining.`);
-	    success = 0;
-        error_counter = error_counter + 1;
-        if (error_counter > 2){
-	      nextTask()		
-		} 
-        return
-    }*/
     for (var i = 0; i < reference_output.length; i++){
         ref_row = reference_output[i];
         for (var j = 0; j < ref_row.length; j++){
@@ -456,9 +441,24 @@ function submitSolution() {
                 errorMsg(`Wrong solution. ${2 - error_counter} out of 3 attempts remaining.`);
 				success = 0;
                 error_counter = error_counter + 1;
-                attempt = new Object(); //reset attempt 
+                action = new Object();
+				action.desc = "submit";
+				action.time = Date.now();
+				action.outcome = fail;
+				actionArray.push(action);
+				sendData();
+                attempt = new Object(); //reset attempt
+                action = new Object();
+                action.attempt = ${error_counter + 1}
+                actionArray.push(action);
         		  if (error_counter > 2){
-	      			nextTask()		
+	      			action = new Object();
+					action.desc = "submit";
+					action.time = Date.now();
+					action.outcome = fail;
+					actionArray.push(action);
+					sendData();
+	      			nextTask();		
 				  } 
                 return
             }
@@ -467,6 +467,12 @@ function submitSolution() {
     }
     infoMsg('Correct solution!');
 	success = 1;
+	action = new Object();
+	action.desc = "submit";
+	action.time = Date.now();
+	action.outcome = success;
+	actionArray.push(action);
+	sendData();
 	nextTask();
 }
 
