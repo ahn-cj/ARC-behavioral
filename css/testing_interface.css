@@ -188,7 +188,7 @@ input, button {
 
 #modal_bg {
     background-color: #C3C6C8;
-    width: 1410px;
+    width: 100%;
     min-height: 10000px;
     position: absolute;
     top: 0;
