@@ -452,7 +452,7 @@ function submitSolution() {
                 attempt = new Object(); //reset attempt
                 action = new Object();
                 action.desc = "new attempt"
-                action.taskname = TASK_ID;
+                action.taskid = task_num + 1;
 				action.time = Date.now();
                 action.attempt = error_counter + 1;
                 actionArray.push(action);
