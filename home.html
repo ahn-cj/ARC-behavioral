@@ -4,9 +4,6 @@
         <meta charset="utf-8">
         <title>ARC testing interface</title>
 
-		<meta http-equiv="X-UA-Compatible" content="chrome=1, IE=9">
-        <meta name="viewport" content="initial-scale=1 maximum-scale=1 user-scalable=0 minimal-ui shrink-to-fit=no" />
-        <script src="https://s3.amazonaws.com/stitch-sdks/js/bundles/4.6.0/stitch.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
         <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
         <script src="js/FileSaver.js"></script>
@@ -35,23 +32,31 @@
         <div id="modal_bg">
             <div id="modal">
                 <div class="welcome_message">Hello! Thank you for participating in the Abstraction and Reasoning study.
-<br />
-<br /><b>Task Instructions</b>
-<br />
+					<br />
+					<br /><b>Task Instructions</b>
+					<br />
                 </div>
                 <div class="task_instructions">
-						<p>Please play the following video for a visual demonstration of the task.
-						<p>///youtube video///
-						<p>Before starting the study, make sure your environment is distraction-free, and put your browser is in fullscreen mode.</p>
-						<p>On each task, you will see some grids with colored pixels to the left of the screen (Test Demonstration Grids), a large grid with colored pixels in the middle of the screen (Test Input Grid), and an empty grid to the right of the screen (Test Output Grid).</p>
-						<p>The Test Demonstration Grids are example pairs of input-output solutions. Your job is to figure out the relationship between input and output from the Test Demonstration Grids, and use that knowledge to fill out the Test Output Grid based on the pattern in the Test Input Grid.</p>
-						<p>To fill out the Test Output Grid, select a pixel color from the color picker below the grid. Then, click and drag across the pixels you wish to fill. You have the option to copy over the pixels from the Test Input Grid to the Test Output grid by clicking on the "Copy from Input" button. Clicking on the "Reset Grid" button will unfill all pixels in the Test Output Grid. You can also manually change the grid size using the "Change Grid Size" option. Once you have completed your solution, click on the green "Submit" button.</p>
-						<p>If your solution is correct, you will proceed to the next task. If it is incorrect, you have up to 3 tries to get the correct solution. Solve the tasks as quickly but accurately as possible.</p>
+					<p>Please play the following video for a visual demonstration of the task.
+					<p>///youtube video///
+					<p>Before starting the study, make sure your environment is distraction-free, and put your browser is in fullscreen mode.</p>
+					<p>On each task, you will see some grids with colored pixels to the left of the screen (Test Demonstration Grids), a large grid with colored pixels in the middle of the screen (Test Input Grid), and an empty grid to the right of the screen (Test Output Grid).</p>
+					<p>The Test Demonstration Grids are example pairs of input-output solutions. Your job is to figure out the relationship between input and output from the Test Demonstration Grids, and use that knowledge to fill out the Test Output Grid based on the pattern in the Test Input Grid.</p>
+					<p>To fill out the Test Output Grid, select a pixel color from the color picker below the grid, and click on pixels to color them in. You have the option to copy over the pixels from the Test Input Grid to the Test Output grid by clicking on the "Copy from Input" button. Clicking on the "Reset Grid" button will unfill all pixels in the Test Output Grid. You can also manually change the grid size using the "Change Grid Size" option. Once you have completed your solution, click on the green "Submit" button.</p>
+					<p>If your solution is correct, you will proceed to the next task. If it is incorrect, you have up to 3 tries to get the correct solution. Solve the tasks as quickly but accurately as possible.</p>
+                <div class="login">
+                  <div class="login-triangle"></div>
+                  
+                  <h2 class="login-header">Log in</h2>
+
+                  <form class="login-container" action="http://127.0.0.1:3000/login" method="post">
+                    <p><input type="text" name="username" placeholder="Username"></p>
+                    <p><input type="password" name="password" placeholder="Password"></p>
+                    <p><input type="submit" value="Log in"></p>
+                  </form>
+                </div>
 				</div>
-				<div class="click_start"><b>Click "Start" to begin.</b>
-				</div>
-				<br />
-				<button onclick="beginTask()" id="present_task_btn">Start</button>
+
               </div>
         </div>
         <div id="workspace">
@@ -77,10 +82,6 @@
                         <label id="error_display"></label>
                         <label id="info_display"></label>
                     </div>
-                    
-                    <div id="display_task_progress">
-                    	<p>Task progress: <b id="percentage"></p>
-                    </div>
 
                     <div id="edition_view">
                         <div id="editor_grid_control_btns">
@@ -98,7 +99,7 @@
 					<div id="instructions">
 						<p>On each task, you will see some grids with colored pixels to the left of the screen (Test Demonstration Grids), a large grid with colored pixels in the middle of the screen (Test Input Grid), and an empty grid to the right of the screen (Test Output Grid).</p>
 						<p>The Test Demonstration Grids are example pairs of input-output solutions. Your job is to figure out the relationship between input and output from the Test Demonstration Grids, and use that knowledge to fill out the Test Output Grid based on the pattern in the Test Input Grid.</p>
-						<p>To fill out the Test Output Grid, select a pixel color from the color picker below the grid. Then, click and drag across the pixels you wish to fill. You have the option to copy over the pixels from the Test Input Grid to the Test Output grid by clicking on the "Copy from Input" button. Clicking on the "Reset Grid" button will unfill all pixels in the Test Output Grid. You can also manually change the grid size using the "Change Grid Size" option. Once you have completed your solution, click on the green "Submit" button.</p>
+						<p>To fill out the Test Output Grid, select a pixel color from the color picker below the grid, and click on pixels to color them in. You have the option to copy over the pixels from the Test Input Grid to the Test Output grid by clicking on the "Copy from Input" button. Clicking on the "Reset Grid" button will unfill all pixels in the Test Output Grid. You can also manually change the grid size using the "Change Grid Size" option. Once you have completed your solution, click on the green "Submit" button.</p>
 						<p>If your solution is correct, you will proceed to the next task. If it is incorrect, you have up to 3 tries to get the correct solution. Solve the tasks as quickly but accurately as possible.</p>
 					</div>
 
@@ -124,14 +125,14 @@
                         </div>
                         <div id="toolbar">
                             <div>
-                                <input type="radio" id="tool_trace"
-                                 name="tool_switching" value="trace" checked>
-                                <label for="tool_trace">Color picker</label>
+                                <input type="radio" id="tool_edit"
+                                 name="tool_switching" value="edit" checked>
+                                <label for="tool_edit">Edit</label>
                             </div>
                         </div>
 
                         <div id="symbol_picker">
-                            <div class="symbol_preview symbol_0" symbol="0"></div>
+                            <div class="symbol_preview symbol_0 selected" symbol="0"></div>
                             <div class="symbol_preview symbol_1" symbol="1"></div>
                             <div class="symbol_preview symbol_2" symbol="2"></div>
                             <div class="symbol_preview symbol_3" symbol="3"></div>

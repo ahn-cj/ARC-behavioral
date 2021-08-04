@@ -1,10 +1,10 @@
 .cell {
     width: 100px;
     height: 100px;
-    border-left: 1px solid #BDC2C9;
-    border-top: 1px solid #BDC2C9;
+    border-left: 1px solid #555;
+    border-top: 1px solid #555;
     float: left;
-    background-color: #FFFFFF;
+    background-color: #000;
 }
 
 .row {
@@ -12,34 +12,34 @@
 }
 
 .symbol_0 {
-    background-color: #2B2B2B;
+    background-color: #000;
 }
 .symbol_1 {
-    background-color: #248ADA; /* blue */
+    background-color: #0074D9; /* blue */
 }
 .symbol_2 {
-    background-color: #C54038; /* red */
+    background-color: #FF4136; /* red */
 }
 .symbol_3 {
-    background-color: #1FC719; /* green */
+    background-color: #2ECC40; /* green */
 }
 .symbol_4 {
-    background-color: #F7DE28; /* yellow */
+    background-color: #FFDC00; /* yellow */
 }
 .symbol_5 {
-    background-color: #B4B0B0; /* grey */
+    background-color: #AAAAAA; /* grey */
 }
 .symbol_6 {
-    background-color: #E377DE; /* fuschia */
+    background-color: #F012BE; /* fuschia */
 }
 .symbol_7 {
-    background-color: #F97E1E; /* orange */
+    background-color: #FF851B; /* orange */
 }
 .symbol_8 {
-    background-color: #35C9AC; /* teal */
+    background-color: #7FDBFF; /* teal */
 }
 .symbol_9 {
-    background-color: #613D16; /* brown */
+    background-color: #870C25; /* brown */
 }
 
 
@@ -56,7 +56,7 @@
 }
 
 .selected-symbol-preview {
-    border: 2px solid black;
+    border: 2px solid orange;
 }
 
 
@@ -87,3 +87,93 @@
     font-size: 18px;
 }
 
+
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:400,700);
+
+body {
+  background: #456;
+  font-family: 'Open Sans', sans-serif;
+}
+
+.login {
+  width: 400px;
+  margin: 16px auto;
+  font-size: 16px auto;
+}
+
+/* Reset top and bottom margins from certain elements */
+.login-header,
+.login p {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+/* The triangle form is achieved by a CSS hack */
+.login-triangle {
+  width: 0;
+  margin-right: auto;
+  margin-left: auto;
+  border: 12px solid transparent;
+  border-bottom-color: #28d;
+}
+
+.login-header {
+  background: #28d;
+  padding: 12px;
+  font-size: 1.4em;
+  font-weight: normal;
+  text-align: center;
+  text-transform: uppercase;
+  color: #fff;
+}
+
+.login-container {
+  background: #ebebeb;
+  padding: 10px;
+}
+
+/* Every row inside .login-container is defined with p tags */
+.login p {
+  padding: 12px;
+}
+
+.login input {
+  box-sizing: border-box;
+  display: block;
+  width: 60%;
+  border-width: 1px;
+  border-style: solid;
+  padding: 10px;
+  outline: 0;
+  font-family: inherit;
+  font-size: 0.95em;
+}
+
+.login input[type="email"],
+.login input[type="password"] {
+  background: #fff;
+  border-color: #bbb;
+  color: #555;
+}
+
+/* Text fields' focus effect */
+.login input[type="email"]:focus,
+.login input[type="password"]:focus {
+  border-color: #888;
+}
+
+.login input[type="submit"] {
+  background: #28d;
+  border-color: transparent;
+  color: #fff;
+  cursor: pointer;
+}
+
+.login input[type="submit"]:hover {
+  background: #17c;
+}
+
+/* Buttons' focus effect */
+.login input[type="submit"]:focus {
+  border-color: #05a;
+}
