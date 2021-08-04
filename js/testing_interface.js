@@ -15,10 +15,10 @@ var MAX_CELL_SIZE = 100;
 // PDDL
 var ACTION_COUNT = 0;
 var PDDL = [];
-var task_num = 0;
-var task_break_1 = 25; //break no.1
-var task_break_2 = 50; //break no.2
-var task_length = 75; //end of session
+var task_num = 1;
+var task_break_1 = 26; //break no.1
+var task_break_2 = 51; //break no.2
+var task_length = 76; //end of session
 var success = 0; //this var defines a success or failure trial
 var error_counter = 0;
 
@@ -77,12 +77,23 @@ function createSubj(){
 	actionArray = [];
 }
 
-function sendData(){
+function updateAttempts(){
 	attempt = actionArray;
 	attemptArray.push(attempt);
-	task = attemptArray;
+	actionArray = [];
+}
+
+function sendData(){
+	//attempt = actionArray;
+	//attemptArray.push(attempt);
+	task.attempts = attemptArray;
+	task.id = task_num;
+	//task.push(attemptArray);
 	taskArray.push(task);
+	
 	jsondata.session = taskArray;
+	
+	
 	var data = JSON.stringify(jsondata);
 	var url = 'https://arc-online-behavioral-backend.herokuapp.com/Participants';
 	var xhr = createCORSRequest('PUT',url)
@@ -97,8 +108,9 @@ function sendData(){
 		alert("Error sending data to server");	
 	};
 	xhr.send(data);
-	attemptArray = [];
+	
 	actionArray = [];
+	attemptArray = [];
 }
 
 function beginTask(){
@@ -130,7 +142,7 @@ function studyBreak() {
 	action.time = Date.now();
 	action.timestamp = Date();
 	actionArray.push(action);
-	alert(`You may now take a 10 minute break. Please notify the research staff if you are taking a break. Click OK to continue.`);
+	alert(`You may now take a 10 minute break. Please notify the research staff if you are taking a break. Do NOT exit out of the task window. Click OK to continue.`);
 }
 
 function endOfStudy() {
@@ -385,12 +397,13 @@ function loadTaskFromFile(e) {
 
 function presentTask() {
     var subset = "training";
-    //attemptArray =[]; //clear attempt array each time a task is presented
+    attemptArray =[]; //clear attempt array each time a task is presented
+    actionArray = [];
     task = new Object();
     attempt = new Object();
     action = new Object();
     $.getJSON("https://api.github.com/repos/ahn-cj/ARC-behavioral/contents/data/" + subset, function(tasks) {
-      var task_presented = tasks[task_num];
+      var task_presented = tasks[task_num - 1];
 	       console.log(Math.floor(Math.random() * task_length))
       TASK_ID = task_presented['name'];
       $.getJSON(task_presented["download_url"], function(json) {
@@ -412,8 +425,6 @@ function presentTask() {
     });
     console.log(task_num + 1);
     action.desc = "new task";
-	action.taskid = task_num + 1;
-	action.attempt = 1;
 	action.time = Date.now();
 	actionArray.push(action);
     showProgress();
@@ -446,25 +457,25 @@ function submitSolution() {
                 action = new Object();
 				action.desc = "submit";
 				action.time = Date.now();
+				action.attempt_num = error_counter;
 				action.outcome = "fail";
 				actionArray.push(action);
-				sendData();
-                attempt = new Object(); //reset attempt
-                action = new Object();
-                action.desc = "new attempt"
-                action.taskid = task_num + 1;
-				action.time = Date.now();
-                action.attempt = error_counter + 1;
-                actionArray.push(action);
+                //attempt = new Object(); //reset attempt
+                //action = new Object();
+                //action.desc = "new attempt"
+                //action.taskid = task_num;
+				//action.time = Date.now();
+                //action.attempt = error_counter;
+                //actionArray.push(action);
         		  if (error_counter > 2){
-	      			action = new Object();
-					action.desc = "submit";
-					action.time = Date.now();
-					action.outcome = "fail";
-					actionArray.push(action);
+        		  	updateAttempts();
 					sendData();
 	      			nextTask();		
 				  } 
+				  else{
+				  	updateAttempts();
+				//  	sendData();
+				  }
                 return
             }
         }
@@ -475,8 +486,10 @@ function submitSolution() {
 	action = new Object();
 	action.desc = "submit";
 	action.time = Date.now();
+	action.attempt_num = error_counter + 1;
 	action.outcome = "success";
 	actionArray.push(action);
+	updateAttempts();
 	sendData();
 	nextTask();
 }
