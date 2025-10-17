@@ -1,0 +1,4 @@
+{
+  "correct": ["Symmetry", "Rotation", "Shape"],
+  "error":   ["Symmetry", "Reverse", "Shape"]
+}

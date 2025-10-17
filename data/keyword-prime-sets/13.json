@@ -1,0 +1,4 @@
+{
+  "correct": ["Direction", "Color", "Path"],
+  "error":   ["Pattern", "Direction", "Path"]
+}
