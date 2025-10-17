@@ -1,0 +1,4 @@
+{
+  "correct": ["Fill", "Deletion", "Color"],
+  "error":   ["Shape", "Position", "Pattern"]
+}
