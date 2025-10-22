@@ -1,4 +1,12 @@
 {
-  "correct": ["Number", "Color", "Size"],
-  "error":   ["Color", "Pattern", "Fill"]
+  "correct": [
+    "Number",
+    "Size",
+    "Color"
+  ],
+  "error": [
+    "Pattern",
+    "Color",
+    "Fill"
+  ]
 }

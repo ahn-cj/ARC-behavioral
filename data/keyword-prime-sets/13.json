@@ -1,4 +1,12 @@
 {
-  "correct": ["Direction", "Color", "Path"],
-  "error":   ["Pattern", "Direction", "Path"]
+  "correct": [
+    "Color",
+    "Direction",
+    "Path"
+  ],
+  "error": [
+    "Pattern",
+    "Size",
+    "Symmetry"
+  ]
 }

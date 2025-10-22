@@ -1,4 +1,12 @@
 {
-  "correct": ["Path", "Color", "Fill"],
-  "error":   ["Path", "Fill", "Contact"]
+  "correct": [
+    "Path",
+    "Color",
+    "Fill"
+  ],
+  "error": [
+    "Contact",
+    "Fill",
+    "Direction"
+  ]
 }

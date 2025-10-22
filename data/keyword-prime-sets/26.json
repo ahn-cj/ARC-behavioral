@@ -1,4 +1,12 @@
 {
-  "correct": ["Symmetry", "Rotation", "Shape"],
-  "error":   ["Symmetry", "Reverse", "Shape"]
+  "correct": [
+    "Symmetry",
+    "Rotation",
+    "Color"
+  ],
+  "error": [
+    "Reverse",
+    "Symmetry",
+    "Color"
+  ]
 }

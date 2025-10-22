@@ -1,4 +1,12 @@
 {
-  "correct": ["Fill", "Color", "Deletion"],
-  "error":   ["Fill", "Color", "Number"]
+  "correct": [
+    "Fill",
+    "Color",
+    "Shape"
+  ],
+  "error": [
+    "Fill",
+    "Number",
+    "Color"
+  ]
 }
